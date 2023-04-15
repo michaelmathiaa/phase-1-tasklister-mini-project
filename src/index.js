@@ -1,18 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById('create-task-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    submitF(e.target.new_task_description.value);
-  });
+  document.getElementById('create-task-form').addEventListener('submit', handleSubmit)
 });
 
-function submitF (task) {
+function handleSubmit (e) {
+  e.preventDefault();
+  const task = e.target[0].value;
+  taskDisplay(task);
+}
+
+function taskDisplay (task) {
+  const taskUl = document.getElementById('tasks');
+  const taskLi = document.createElement('li');
+  const deleteButton = document.createElement('button');
+  
+  deleteButton.textContent = 'x';
+  deleteButton.addEventListener('click', deleteF);
+
+  taskLi.textContent = task;
+  taskLi.appendChild(deleteButton);
+  taskUl.appendChild(taskLi);
+}
+
+function deleteF (e) {
+  e.target.parentNode.remove();
+}
+
+/*function submitF (task) {
   let p = document.createElement('p');
   let btn = document.createElement('button');
   btn.textContent = 'x';
   p.textContent = `${task}  `;
   p.appendChild(btn);
-  document.querySelector('#list').appendChild(p);
-}
+  document.querySelector('#tasks').appendChild(p);
+}*/
 
 /*function sortTasks() {
   const sortTasksSelect = document.getElementById("sort-tasks")
